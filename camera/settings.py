@@ -9,6 +9,13 @@ def setTime(time=datetime.datetime.now(), ip="192.72.1.1"):
         )
     )
 
+    if data.text == "0\nOK\n":
+        return True
+
+    else:
+        return False
+
+
 def setResolution(res, ip="192.72.1.1"):
     data = requests.get(
         "http://{}/cgi-bin/Config.cgi?action=set&property=Videores&value={}".format(
