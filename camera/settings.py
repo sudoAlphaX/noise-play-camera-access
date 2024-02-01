@@ -30,6 +30,18 @@ def setResolution(res, ip="192.72.1.1"):
         return False
 
 
+def setWhiteBalance(wb, ip="192.72.1.1"):
+    data = requests.get(
+        "http://{}/cgi-bin/Config.cgi?action=set&property=AWB&value={}".format(ip, wb)
+    )
+
+    if data.text == "0\nOK\n":
+        return True
+
+    else:
+        return False
+
+
 if __name__ == "__main__":
     data = setResolution("2.7K15")
     print(data)
