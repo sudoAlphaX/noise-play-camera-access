@@ -56,6 +56,32 @@ def setFrequency(fq, ip="192.72.1.1"):
         return False
 
 
+def setExposure(exp, ip="192.72.1.1"):
+    if int(exp) == 0:
+        expval = "0"
+
+    elif int(exp) > 0:
+        expval = "P" + str(int(exp)).zfill(3)
+
+    elif int(exp) < 0:
+        expval = "N" + str(abs(int(exp))).zfill(3)
+
+    else:
+        return False
+
+    data = requests.get(
+        "http://{}/cgi-bin/Config.cgi?action=set&property=Exposure&value=EV{}".format(
+            ip, expval
+        )
+    )
+
+    if data.text == "0\nOK\n":
+        return True
+
+    else:
+        return False
+
+
 if __name__ == "__main__":
     data = setResolution("2.7K15")
     print(data)
